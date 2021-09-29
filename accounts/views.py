@@ -3,9 +3,9 @@ from django.contrib.auth.models import User, auth
 
 
 def register(request):
-    if register.method == 'POST':
+    if request.method == 'POST':
         first_name = request.POST['first_name']
-        last_name = request.POST['last_mane']
+        last_name = request.POST['last_name']
         username = request.POST['username']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -18,7 +18,7 @@ def register(request):
                 print('email taken')
             else:
                 user = User.objects.create_user(
-                    username=username, password1=password1,
+                    username=username, password=password1,
                     email=email, first_name=first_name, last_name=last_name
                 )
                 user.save()

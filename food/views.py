@@ -76,4 +76,4 @@ def form(request):
         if form.is_valid():
             form.save()
         form = contactform()
-        return render(request, 'form.html')
+        return render(request, 'form.html', {'form': form})
