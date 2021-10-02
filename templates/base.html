@@ -27,7 +27,7 @@
     <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/steel.css' %}" rel="stylesheet">
   </head>
 
 <body>
@@ -59,7 +59,7 @@
   <header id="header" class="fixed-top d-flex align-items-cente">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="{% static 'home.html' %}">Elfido</a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">Elfido</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="{% static '"index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -157,7 +157,7 @@
   </footer><!-- End Footer -->
 
   <div id="preloader"></div>
-  <a href="{% static '#' %" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="{% url 'home' %}" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   
   <!-- Vendor JS Files -->
   <script src="{% static 'vendor/aos/aos.js' %}"></script>
