@@ -63,7 +63,7 @@ def Conatct1(request):
         email = request.POST['email']
         subject = request.POST['subject']
         message = request.POST['message']
-        var = response(name=name, email=email, phone=phone, subject=subject, message=message)
+        var = Response(name=name, email=email, phone=phone, subject=subject, message=message)
         var.save()
         return render(request, 'contact.html')
     else:
