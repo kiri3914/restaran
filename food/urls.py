@@ -1,12 +1,11 @@
 from django.urls import path
-from . import views
+from .views import home, menu, booktable, contact, event, menu_category
 
 urlpatterns = [
-    path('index', views.index, name='index'),
-    path('', views.home, name='home'),
-    path('menu1', views.menu, name='menu'),
-    path('booktable', views.booktable, name='booktable'),
-    path('contact', views.Conatct1, name='contact'),
-    path('Event', views.Event, name='Event'),
-    path('blood', views.blood, name='blood'),
+    path('', home, name='home'),
+    path('menu', menu, name='menu'),
+    path('menu/<int:id>', menu_category, name='menu_id'),
+    path('booktable', booktable, name='booktable'),
+    path('contact', contact, name='contact'),
+    path('event', event, name='Event'),
 ]

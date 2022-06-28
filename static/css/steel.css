@@ -1726,4 +1726,13 @@ section {
   text-align: center;
   font-size: 13px;
   color: #fff;
+
+
+
+}
+
+
+
+.qwerty{
+width: 320px; /* Ширина списка в пикселах */
 }

@@ -1,50 +1,76 @@
+
 from django.db import models
 
-
-class Starter(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=255)
-    img = models.ImageField(upload_to='pict')
+
+    def __str__(self) -> str:
+        return self.name
+    
+
+class Food(models.Model):
+    name = models.CharField(max_length=254)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    img = models.ImageField(upload_to='foods')
     desc = models.TextField()
     price = models.IntegerField()
-    offer = models.BooleanField(default=False)
 
-
-class Salad(models.Model):
-    name = models.CharField(max_length=100)
-    img = models.ImageField(upload_to='pics')
-    desc = models.TextField()
-    price = models.IntegerField()
-    offer = models.BooleanField(default=False)
-
-
-class Specialty(models.Model):
-    name = models.CharField(max_length=100)
-    img = models.ImageField(upload_to='pics')
-    desc = models.TextField()
-    price = models.IntegerField()
-    offer = models.BooleanField(default=False)
+    def __str__(self) -> str:
+        return self.name
 
 
 class Table(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50)
-    phone = models.CharField(max_length=20)
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class BookTable(models.Model):
+    name = models.CharField(max_length=255)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)
     date = models.DateTimeField()
     persons = models.IntegerField()
-    message = models.TextField()
+    message = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return f"Клиент {self.name} заброни ровал столик {self.table.name}"
 
 
 class Response(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50)
-    phone = models.CharField(max_length=20)
-    subjects = models.CharField(max_length=40)
-    message = models.TextField()
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)
+    subjects = models.CharField(max_length=255)
+    message = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
+    
+
+class Event(models.Model):
+    name = models.CharField(max_length=244)
+    image = models.ImageField(upload_to='events')
+    index = models.CharField(max_length=10)
+    title = models.CharField(max_length=50)
+    text1 = models.CharField(max_length=50)
+    text2 = models.CharField(max_length=50)
+    text3 = models.CharField(max_length=50)
+    desc = models.TextField()
+
+    def __str__(self) -> str:
+        return self.name
 
 
-class Program(models.Model):
-    name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=20)
-    date = models.DateTimeField()
-    events = models.TextField()
-    persons = models.IntegerField()
+
+
+    
+
+
+
+
+
+
+

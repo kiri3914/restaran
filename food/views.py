@@ -1,79 +1,84 @@
+from email import message
+from unicodedata import category
 from django.shortcuts import render
-from .models import *
-from .forms import *
-from django.http import response
-
-
-def index(request):
-    return render(request, 'index.html')
-
+from .models import Food, BookTable, Table, Response, Event, Category
 
 def home(request):
     return render(request, 'home.html')
 
-
-def blood(request):
-    return render(request, 'blood.html')
-
+def menu_category(request, id):
+    foods = Food.objects.filter(category__id=id)
+    categories = Category.objects.all()
+    context = {
+        'foods': foods,
+        'categories': categories
+    }
+    return render(request, 'menu.html', context)
 
 def menu(request):
-    starter = Starter.objects.all()
-    salads = Salad.objects.all()
-    specialtys = Specialty.objects.all()
-    return render(request, 'menu.html', {'starters': starter, 'salads': salads, 'specialtys': specialtys})
+    foods = Food.objects.all()
+    categories = Category.objects.all()
+    context = {
+        'foods': foods,
+        'categories': categories
+    }
+    return render(request, 'menu.html', context)
 
 
 def booktable(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         name = request.POST['name']
         email = request.POST['email']
+        table = request.POST['table']
         phone = request.POST['phone']
         date = request.POST['date']
         persons = request.POST['persons']
         message = request.POST['message']
-        print(name, email, phone, date, persons, message)
-        ins = Table(name=name, email=email, phone=phone, date=date, persons=persons, message=message)
-        ins.save()
-        print('data save in db')
-        return render(request, 'booktable.html')
-    else:
-        return render(request, 'booktable.html')
+
+        book = BookTable(
+            name=name,
+            email=email,
+            table=Table.objects.get(id=table),
+            phone=phone,
+            date=date,
+            persons=persons,
+            message=message       
+            )
+        book.save()
+    
+    table = Table.objects.all()
+    context = {
+        'tables': table
+    }     
+    return render(request, 'booktable.html', context)
 
 
-def Event(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        phone = request.POST['phone']
-        date = request.POST['date']
-        event = request.POST['event']
-        persons = request.POST['persons']
-        print(name, phone, date, event, persons)
-        var = Program(name=name, phone=phone, date=date, event=event, persons=persons)
-        var.save()
-        print('data save in db')
-        return render(request, 'nome.html')
-    else:
-        return render(request, 'Event.html')
 
-
-def Conatct1(request):
+def contact(request):
     if request.method == "POST":
         name = request.POST['name']
         phone = request.POST['phone']
         email = request.POST['email']
         subject = request.POST['subject']
         message = request.POST['message']
-        var = Response(name=name, email=email, phone=phone, subject=subject, message=message)
-        var.save()
-        return render(request, 'contact.html')
-    else:
-        return render(request, 'contact.html')
+
+        response = Response(
+            name=name,
+            phone=phone,
+            email=email,
+            subjects=subject,
+            message=message
+        )
+        response.save()
+
+    return render(request, 'contact.html')
 
 
-def form(request):
-    if request.method == "POST":
-        form = contactform(request.POST)
-        if form.is_valid():
-            form.save()
-        form = contactform()
-        return render(request, 'form.html', {'form': form})
+
+
+def event(request):
+    events = Event.objects.all()
+    context = {
+        'events': events
+    }
+    return render(request, 'event.html', context)
