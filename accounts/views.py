@@ -18,9 +18,11 @@ def register(request):
                 print('email taken')
             else:
                 user = User.objects.create_user(
-                    username=username, password=password1,
+                    username=username,
                     email=email, first_name=first_name, last_name=last_name
                 )
+                # Чтобы зашифровать пароль нужно написать вот так балам че то ты раслабился ) учись давай 
+                user.set_password(password1)
                 user.save()
                 print('user created', )
 
